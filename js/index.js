@@ -1,22 +1,23 @@
 /* ***************************
   JWD JavaScript Assessment
 
-  This code is unfinished. You will need to study it to figure out what it does. Then you will need to use this and
-  your own code, to finish the app. 
+  This code is unfinished. You will need to study it to figure out what it does. 
+  Then you will need to use this and your own code, to finish the app. 
   
   The tasks you need to do are below.
 
     TASKS TODO:
-      1. Calculate the score as the total of the number of correct answers
+      1. Calculate the score as the total of the number of correct answers-----half finished
 
-      2. Add an Event listener for the submit button, which will display the score and highlight 
+      2. Add an Event listener for the submit button, which will display the score and highlight -----finished
          the correct answers when the button is clicked. Use the code from lines 67 to 86 to help you.
 
-      3. Add 2 more questions to the app (each question must have 4 options).
+      3. Add 2 more questions to the app (each question must have 4 options).-----finished
 
-      4. Reload the page when the reset button is clicked (hint: search window.location)
+      4. Reload the page when the reset button is clicked (hint: search window.location)-----finished
 
-      5. Add a countdown timer - when the time is up, end the quiz, display the score and highlight the correct answers
+      5. Add a countdown timer - when the time is up, end the quiz, display the score and highlight
+       the correct answers---------optional
 *************************** */
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -40,8 +41,18 @@ window.addEventListener('DOMContentLoaded', () => {
       a: 3,
     },
     {
-      q: 'What is the capital of Australia',
+      q: 'What is the capital of Australia?',
       o: ['Sydney', 'Canberra', 'Melbourne', 'Perth'],
+      a: 1,
+    },
+    {
+      q: 'How much population of Australians live on the coast?',
+      o: ['about 90%', 'about 80%', 'about 70%', 'about 50%'],
+      a: 0,
+    },
+    {
+      q: 'How many states in Australians?',
+      o: ['9', '8', '7', '6'],
       a: 1,
     },
   ];
@@ -66,6 +77,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // Calculate the score
   const calculateScore = () => {
     let score = 0;
+    let correctItems=0;
     quizArray.map((quizItem, index) => {
       for (let i = 0; i < 4; i++) {
         //highlight the li if it is the correct answer
@@ -73,18 +85,53 @@ window.addEventListener('DOMContentLoaded', () => {
         let r = `radio_${index}_${i}`;
         liElement = document.querySelector('#' + li);
         radioElement = document.querySelector('#' + r);
-
+              
         if (quizItem.a == i) {
           //change background color of li element here
+          liElement.style.backgroundColor = 'lightgreen';
+          
         }
 
         if (radioElement.checked) {
-          // code for task 1 goes here
+          // code for task 1 goes here.
+          // 1. Calculate the score as the total of the number of correct answers
+         
+          
+          console.log(radioElement);
+          const scoreContent = document.querySelector('#score');
+            correctItems++;
+            score = score + correctItems*20;
+            scoreContent.innerHTML = score;
+            console.log(correctItems);
+            console.log(scoreContent);
+
+          // if(radioElement.index == quizItem.a) {
+          //   const scoreContent = document.querySelector('#score');
+          //   correctItems++;
+          //   score = score + correctItems*20;
+          //   scoreContent.innerHTML = score;
+          //   console.log(scoreContent);
+          // }else{
+          //   score = 0;
+          // }
+          
+          
+          
         }
+        
       }
+      
     });
   };
 
   // call the displayQuiz function
   displayQuiz();
+
+  const submit = document.querySelector('#btnSubmit');
+  submit.addEventListener('click', calculateScore);
+
+  const res = document.querySelector('#btnReset');
+  res.addEventListener('click', function(){location.reload()});
+  
+
 });

@@ -101,7 +101,7 @@ window.addEventListener('DOMContentLoaded', () => {
           const scoreContent = document.querySelector('#score');
             correctItems++;
             score = score + correctItems*20;
-            scoreContent.innerHTML = score;
+            scoreContent.innerHTML = `your score is ${score}`;
             console.log(correctItems);
             console.log(scoreContent);
 
